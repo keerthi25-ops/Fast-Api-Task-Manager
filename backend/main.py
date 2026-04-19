@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from app.routers import auth, tasks
 from app.db.database import engine, Base
 from app.models import user, task
@@ -28,7 +29,7 @@ app.include_router(tasks.router, prefix="/tasks", tags=["tasks"])
 
 @app.get("/")
 async def root():
-    return {"message": "Task Manager API"}
+    return FileResponse("backend/app/frontend/index.html", media_type="text/html")
 
 @app.get("/health")
 async def health_check():
